@@ -7,7 +7,7 @@ When you write a react component, you may need tell others how to use it by writ
 Redemo is used to help write demo for react component in a easy way, is't pretty and simple to use.
 
 <p align="center">
-  <a href="https://rax.taobaofed.org">
+  <a href="https://gwuhaolin.github.io/redemo/">
     <img alt="redemo" src="./src/doc/redemo.png" width="600">
   </a>
 </p>
