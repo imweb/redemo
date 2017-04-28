@@ -1,0 +1,78 @@
+$colorBg: #fff;
+$colorBorder: #e9e9e9;
+$paddingRL: 15px;
+$paddingTB: 20px;
+
+.re-demo {
+  position: relative;
+  border: 1px solid $colorBorder;
+  border-radius: 4px;
+  display: inline-block;
+
+  &-run {
+    padding: $paddingTB $paddingRL;
+  }
+
+  &-md {
+    position: relative;
+    padding: $paddingTB $paddingRL;
+    border-top: 1px solid $colorBorder;
+    $border: 5px;
+
+    @mixin inLine {
+      color: rgba(0, 0, 0, .65);
+      font-size: 17px;
+      font-weight: 500;
+      position: absolute;
+      top: -19px;
+      background-color: $colorBg;
+      border: $border solid $colorBg;
+    }
+
+    &-title {
+      @include inLine;
+      left: $paddingRL - $border;
+    }
+
+    &-toolbar {
+      @include inLine;
+      right: $paddingRL - $border;
+      border: none;
+      top: -17px;
+
+      .ant-btn-circle {
+        margin: 0 5px;
+      }
+    }
+
+  }
+
+  &-code {
+    position: relative;
+    border-top: 1px dashed $colorBorder;
+    padding: $paddingRL;
+
+    .hljs {
+      padding: 0;
+    }
+
+    &-copy {
+      position: absolute;
+      right: $paddingRL - 5px;
+      top: $paddingRL;
+    }
+  }
+
+  &-proptypes {
+    border-top: 1px dashed $colorBorder;
+
+    th, td {
+      word-break: normal !important;
+    }
+
+    .ant-table-small {
+      border: none;
+    }
+  }
+
+}
