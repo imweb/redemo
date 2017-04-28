@@ -60,7 +60,8 @@ module.exports = {
       allChunks: true,
     }),
     new EndWebpackPlugin(() => {
-      ncp('./package.json', './npm/package.json')
+      ncp('./package.json', './npm/package.json');
+      ncp('./README.md', './npm/README.md');
     }),
   ],
   devtool: 'source-map',
