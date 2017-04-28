@@ -26,10 +26,6 @@ const PropTypesTableColumns = [
     dataIndex: 'type',
     key: 'type',
   }, {
-    title: 'required',
-    dataIndex: 'required',
-    key: 'required',
-  }, {
     title: 'defaultValue',
     dataIndex: 'defaultValue',
     key: 'defaultValue',
@@ -39,12 +35,18 @@ const PropTypesTableColumns = [
 export default class Redemo extends Component {
 
   static propTypes = {
+    /**
+     * 追加className
+     */
     className: PropTypes.string,
+    /**
+     * 设置style
+     */
     style: PropTypes.object,
     /**
      * 展示demo实例
      */
-    children: PropTypes.any,
+    children: PropTypes.any.isRequired,
     /**
      * demo源码
      */
@@ -52,7 +54,7 @@ export default class Redemo extends Component {
     /**
      * 这个demo的名称
      */
-    title: PropTypes.string,
+    title: PropTypes.string.isRequired,
     /**
      * 对demo的说明，支持markdown语法
      */
@@ -61,19 +63,30 @@ export default class Redemo extends Component {
      * 组件的propTypes属性列表，兼容 react-docgen 格式
      */
     propTypes: PropTypes.object,
+    /**
+     * 是否显示demo源码
+     */
+    defaultCodeVisible: PropTypes.bool,
+    /**
+     * 是否显示组件propTypes属性列表
+     */
+    defaultPropTypeVisible: PropTypes.bool,
   }
 
-  static defaultProps = {}
+  static defaultProps = {
+    defaultCodeVisible: false,
+    defaultPropTypeVisible: false,
+  }
 
   state = {
     /**
      * 是否显示源码
      */
-    codeVisible: false,
+    codeVisible: this.props.defaultCodeVisible,
     /**
      * 是否显示属性列表
      */
-    propTypeVisible: false,
+    propTypeVisible: this.props.defaultPropTypeVisible,
   }
 
   /**
@@ -112,12 +125,14 @@ export default class Redemo extends Component {
       const dataSource = [];
       Object.keys(propTypes).forEach(propName => {
         const propInfo = propTypes[propName] || {};
+        const required = propInfo.required || false;
         const one = {
           key: propName,
-          name: propName,
-          description: propInfo.description,
-          type: (propInfo.type || {}).name,
-          required: propInfo.required,
+          name: <span className={classnames({
+            're-demo-proptypes-required': required
+          })}>{propName}</span>,
+          description: propInfo.description || '-',
+          type: (propInfo.type || {}).name || '-',
           defaultValue: (propInfo.defaultValue || {}).value,
         }
         dataSource.push(one);

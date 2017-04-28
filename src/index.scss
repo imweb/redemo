@@ -70,6 +70,10 @@ $paddingTB: 20px;
       word-break: normal !important;
     }
 
+    &-required {
+      color: #f46e65;
+    }
+
     .ant-table-small {
       border: none;
     }
