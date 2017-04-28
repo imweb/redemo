@@ -8,7 +8,7 @@ Redemo is used to help write demo for react component in a easy way, is't pretty
 
 <p align="center">
   <a href="https://rax.taobaofed.org">
-    <img alt="redemo" src="./src/doc/redemo.png" width="888">
+    <img alt="redemo" src="./src/doc/redemo.png" width="600">
   </a>
 </p>
 
