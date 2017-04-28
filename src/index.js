@@ -49,6 +49,7 @@ export default class Redemo extends Component {
     children: PropTypes.any.isRequired,
     /**
      * demo源码
+     * 如果为空就不展示
      */
     code: PropTypes.string,
     /**
@@ -57,18 +58,20 @@ export default class Redemo extends Component {
     title: PropTypes.string.isRequired,
     /**
      * 对demo的说明，支持markdown语法
+     * 如果为空就不展示
      */
     doc: PropTypes.string,
     /**
      * 组件的propTypes属性列表，兼容 react-docgen 格式
+     * 如果为空就不展示
      */
     propTypes: PropTypes.object,
     /**
-     * 是否显示demo源码
+     * 默认是否显示demo源码
      */
     defaultCodeVisible: PropTypes.bool,
     /**
-     * 是否显示组件propTypes属性列表
+     * 默认是否显示组件propTypes属性列表
      */
     defaultPropTypeVisible: PropTypes.bool,
   }
@@ -185,7 +188,7 @@ export default class Redemo extends Component {
               shape="circle"
               icon="exception"
               size="small"
-              title="propTypes"
+              title="component prop types"
               onClick={this.togglePropTypes}
             /> : null}
             {code ? <Button
@@ -193,7 +196,7 @@ export default class Redemo extends Component {
               shape="circle"
               icon="code-o"
               size="small"
-              title="code"
+              title="demo source code"
               onClick={this.toggleCode}
             /> : null}
           </span>

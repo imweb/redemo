@@ -17,6 +17,7 @@ const doc = `
 
 const code = `
 import ReDemo from 'redemo';
+
 <ReDemo
   className="my-demo"
   title="react demo component"
@@ -35,8 +36,10 @@ const demo = (
     propTypes={propTypes}
     doc={doc}
     code={code}
+    defaultCodeVisible
+    defaultPropTypeVisible
   >
-    <Button>react component instance</Button>
+    <Button>demo component instance</Button>
   </ReDemo>
 )
 

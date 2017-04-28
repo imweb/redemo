@@ -14,6 +14,7 @@ $paddingTB: 20px;
   }
 
   &-md {
+    text-align: left;
     position: relative;
     padding: $paddingTB $paddingRL;
     border-top: 1px solid $colorBorder;
@@ -48,6 +49,7 @@ $paddingTB: 20px;
   }
 
   &-code {
+    text-align: left;
     position: relative;
     border-top: 1px dashed $colorBorder;
     padding: $paddingRL;
@@ -64,6 +66,7 @@ $paddingTB: 20px;
   }
 
   &-proptypes {
+    text-align: left;
     border-top: 1px dashed $colorBorder;
 
     th, td {
