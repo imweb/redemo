@@ -6,30 +6,24 @@
 When you write a react component, you may need tell others how to use it by write some demos.
 Redemo is used to help write demo for react component in a easy way, is't pretty and simple to use.
 
-## install
-use it in CMD
-```bash
-npm i redemo
-```
-load it in browser direct
-```html
-<html>
-<head>
-<link rel="stylesheet" href="./node_modules/redemo/dist/redemo.css">
-</head>
-<body>
-  <script src="./node_modules/redemo/dist/redemo.js"></script>
-</body>
-</html>
-```
-
 ## feature
 - doc: write doc in markdown for this demo
 - code: show source code for this demo
 - propTypes: auto list react component `propTypes` document form comment in your component source instead of write by yourself
 
+## install
+use it from npm
+```bash
+npm i redemo
+```
+load it in browser direct
+```html
+<link rel="stylesheet" href="./node_modules/redemo/dist/redemo.css">
+<script src="./node_modules/redemo/dist/redemo.js"></script>
+```
+
 ## example
-Let's write a demo for a `Button` component write by you
+Let's write a demo for a `Button` component
 
 ```js
 import ReDemo from 'redemo';
