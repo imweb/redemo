@@ -75,12 +75,11 @@ module.exports = {
     new EndWebpackPlugin(() => {
       ghpages.publish(outputPath, { dotfiles: true }, (err) => {
         if (err) {
-          console.error('commit doc to gh-pages fail');
+          console.error('push doc to gh-pages fail');
         } else {
-          console.error('commit doc to gh-pages succ');
+          console.error('push doc to gh-pages succ');
         }
       })
     }),
-  ],
-  devtool: 'source-map',
+  ]
 };

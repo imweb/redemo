@@ -40,7 +40,7 @@
     "react-docgen": "^2.14.1",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
-    "web-webpack-plugin": "^1.5.4",
+    "web-webpack-plugin": "^1.5.5",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.5"
   }
