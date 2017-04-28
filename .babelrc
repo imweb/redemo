@@ -18,5 +18,18 @@
         "style": "css"
       }
     ]
-  ]
+  ],
+  "env": {
+    "dist": {
+      "plugins": [
+        [
+          "replace-require-suffix",
+          {
+            "from": "scss",
+            "to": "css"
+          }
+        ]
+      ]
+    }
+  }
 }

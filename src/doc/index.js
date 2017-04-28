@@ -8,11 +8,12 @@ const docgen = require('!!docgen-loader!../index');
 const propTypes = docgen[0]['props'];
 
 const doc = `
-### 用来展示react组件的组件
-#### 功能列表
-- 文档：设置 doc 属性描述当前demo，支持markdown语法
-- 代码：设置 code 属性展示当前demo源码，支持代码高亮
-- 属性列表：设置 propTypes 属性展示当前组件所有属性用法，兼容[react-docgen](https://github.com/reactjs/react-docgen)
+### react component used to demonstrate react component
+#### structure
+- in top section is demo instance to play 
+- circle button in right are toggle for **component propTypes** and **demo source code**
+- propTypes table show all prop's info for this component
+- in bottom is source code for this demo
 `
 
 const code = `
@@ -32,12 +33,12 @@ import ReDemo from 'redemo';
 const demo = (
   <ReDemo
     className="my-demo"
-    title="react demo component"
+    title="Redemo demo"
     propTypes={propTypes}
     doc={doc}
     code={code}
-    defaultCodeVisible
-    defaultPropTypeVisible
+    codeVisible
+    propTypeVisible
   >
     <Button>demo component instance</Button>
   </ReDemo>

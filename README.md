@@ -2,14 +2,27 @@
 [![Npm Downloads](http://img.shields.io/npm/dm/redemo.svg?style=flat-square)](https://www.npmjs.com/package/redemo)
 [![Dependency Status](https://david-dm.org/gwuhaolin/redemo.svg?style=flat-square)](https://npmjs.org/package/redemo)
 
-# react demo component
+# redemo
 When you write a react component, you may need tell others how to use it by write some demos.
 Redemo is used to help write demo for react component in a easy way, is't pretty and simple to use.
 
 ## install
+use it in CMD
 ```bash
 npm i redemo
 ```
+load it in browser direct
+```html
+<html>
+<head>
+<link rel="stylesheet" href="./node_modules/redemo/dist/redemo.css">
+</head>
+<body>
+  <script src="./node_modules/redemo/dist/redemo.js"></script>
+</body>
+</html>
+```
+
 ## feature
 - doc: write doc in markdown for this demo
 - code: show source code for this demo
@@ -31,11 +44,12 @@ const code = require('!!raw-loader!../button');
 
 // write doc for this demo in markdown
 const doc = `
-### 用来展示react组件的组件
-#### 功能列表
-- 文档：设置 doc 属性描述当前demo，支持markdown语法
-- 代码：设置 code 属性展示当前demo源码，支持代码高亮
-- 属性列表：设置 propTypes 属性展示当前组件所有属性用法，兼容[react-docgen](https://github.com/reactjs/react-docgen)
+### react component used to demonstrate react component
+#### structure
+- in top section is demo instance to play 
+- circle button in right are toggle for **component propTypes** and **demo source code**
+- propTypes table show all prop's info for this component
+- in bottom is source code for this demo
 `
 
 <ReDemo

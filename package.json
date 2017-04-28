@@ -1,17 +1,22 @@
 {
   "name": "redemo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "react demo component",
   "keywords": [
     "react",
     "demo",
     "component",
-    "doc"
+    "doc",
+    "redemo"
   ],
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --open",
-    "doc": "rm -rf doc && NODE_ENV=production webpack --config webpack-dist.config.js"
+    "dev": "webpack-dev-server --config doc-webpack.config.js --open",
+    "doc:pub": "rm -rf doc && NODE_ENV=production webpack --config doc-webpack-dist.config.js",
+    "npm:scss": "node-sass src/ -o npm/",
+    "npm:js": "BABEL_ENV=dist babel src/ --out-dir npm/ --source-maps",
+    "npm:umd": "NODE_ENV=production webpack --config npm-webpack.config.js",
+    "npm:pub": "rm -rf npm && npm run npm:scss && npm run npm:js && npm run npm:umd && npm publish npm/"
   },
   "author": "halwu",
   "license": "ISC",
@@ -25,8 +30,10 @@
     "react-remarkable": "^1.1.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
+    "babel-plugin-replace-require-suffix": "^1.0.0",
     "babel-plugin-import": "^1.1.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
@@ -35,7 +42,9 @@
     "css-loader": "^0.28.0",
     "docgen-loader": "^1.3.4",
     "end-webpack-plugin": "^1.0.0",
+    "extract-text-webpack-plugin": "^2.1.0",
     "gh-pages": "^0.12.0",
+    "ncp": "^2.0.0",
     "node-sass": "^4.5.2",
     "react-docgen": "^2.14.1",
     "sass-loader": "^6.0.3",

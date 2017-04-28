@@ -14,9 +14,7 @@ module.exports = {
     mainFields: ['jsnext:main', 'browser', 'main'],
   },
   module: {
-    // 这些库都是不依赖其它库的库 不需要解析他们可以加快编译速度
-    noParse: /node_modules\/(moment)/,
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         // cacheDirectory 缓存babel编译结果加快重新编译速度

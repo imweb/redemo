@@ -1,8 +1,7 @@
-require('highlight.js/styles/arduino-light.css')
 import React, { Component, PropTypes } from 'react';
-import { copyToClipboard, selectElementContents } from './util';
 import classnames from 'classnames';
 import Highlight from 'react-highlight';
+import 'highlight.js/styles/arduino-light.css';
 import Markdown from 'react-remarkable';
 import 'antd/lib/style/index.css';
 import message from 'antd/lib/message';
@@ -11,6 +10,57 @@ import Button from 'antd/lib/button';
 import Table from 'antd/lib/table';
 import 'antd/lib/table/style/index.css';
 import './index.scss';
+
+/**
+ * Copies a string to the clipboard. Must be called from within an
+ * event handler such as click. May return false if it failed, but
+ * this is not always possible. Browser support for Chrome 43+,
+ * Firefox 42+, Safari 10+, Edge and IE 10+.
+ * IE: The clipboard feature may be disabled by an administrator. By
+ * default a prompt is shown the first time the clipboard is
+ * used (per session).
+ * @param text
+ * @returns {boolean}
+ */
+function copyToClipboard(text) {
+  if (window.clipboardData && window.clipboardData.setData) {
+    // IE specific code path to prevent textarea being shown while dialog is visible.
+    return clipboardData.setData('Text', text);
+
+  } else { //noinspection JSUnresolvedVariable,JSUnresolvedFunction
+    if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
+      let textarea = document.createElement('textarea');
+      textarea.textContent = text;
+      textarea.style.position = 'fixed';  // Prevent scrolling to bottom of page in MS Edge.
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        return document.execCommand('copy');  // Security exception may be thrown by some browsers.
+      } catch (err) {
+        throw err;
+      } finally {
+        document.body.removeChild(textarea);
+      }
+    }
+  }
+}
+
+/**
+ * If you want to select all the content of an element (contenteditable or not) in Chrome, here's how.
+ * This will also work in Firefox, Safari 3+, Opera 9+ (possibly earlier versions too) and IE 9.
+ * You can also create selections down to the character level.
+ * The APIs you need are DOM Range (current spec is DOM Level 2, see also MDN) and Selection,
+ * which is being specified as part of a new Range spec (MDN docs).
+ * @param el
+ * http://stackoverflow.com/questions/6139107/programmatically-select-text-in-a-contenteditable-html-element
+ */
+function selectElementContents(el) {
+  let range = document.createRange();
+  range.selectNodeContents(el);
+  let sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+}
 
 const PropTypesTableColumns = [
   {
@@ -32,78 +82,87 @@ const PropTypesTableColumns = [
   }
 ];
 
+/**
+ * react component used to demonstrate react component
+ */
 export default class Redemo extends Component {
 
   static propTypes = {
     /**
-     * 追加className
-     */
-    className: PropTypes.string,
-    /**
-     * 设置style
-     */
-    style: PropTypes.object,
-    /**
-     * 展示demo实例
+     * component instance
      */
     children: PropTypes.any.isRequired,
     /**
-     * demo源码
-     * 如果为空就不展示
+     * this demo's name
+     */
+    title: PropTypes.any.isRequired,
+    /**
+     * demo source code
+     * - if it's void will not display
      */
     code: PropTypes.string,
     /**
-     * 这个demo的名称
-     */
-    title: PropTypes.string.isRequired,
-    /**
-     * 对demo的说明，支持markdown语法
-     * 如果为空就不展示
+     * explanation to this demo
+     * - support markdown
+     * - if it's void will not display
      */
     doc: PropTypes.string,
     /**
-     * 组件的propTypes属性列表，兼容 react-docgen 格式
-     * 如果为空就不展示
+     * component's propTypes prop，load from [react-docgen](https://github.com/reactjs/react-docgen)
+     * - support markdown
+     * - if it's void will not display
      */
     propTypes: PropTypes.object,
     /**
-     * 默认是否显示demo源码
+     * whether show source code
      */
-    defaultCodeVisible: PropTypes.bool,
+    codeVisible: PropTypes.bool,
     /**
-     * 默认是否显示组件propTypes属性列表
+     * whether show propTypes
      */
-    defaultPropTypeVisible: PropTypes.bool,
+    propTypeVisible: PropTypes.bool,
+    /**
+     * append className to Redemo
+     */
+    className: PropTypes.string,
+    /**
+     * set style for Redemo
+     */
+    style: PropTypes.object,
   }
 
   static defaultProps = {
-    defaultCodeVisible: false,
-    defaultPropTypeVisible: false,
+    codeVisible: false,
+    propTypeVisible: false,
   }
 
   state = {
     /**
-     * 是否显示源码
+     * whether show source code
      */
-    codeVisible: this.props.defaultCodeVisible,
+    codeVisible: this.props.codeVisible,
     /**
-     * 是否显示属性列表
+     * whether show propTypes
      */
-    propTypeVisible: this.props.defaultPropTypeVisible,
+    propTypeVisible: this.props.propTypeVisible,
   }
 
-  /**
-   * 切换是否显示源代码
-   */
+  componentWillReceiveProps(nextProps) {
+    const { codeVisible, propTypeVisible } = this.props;
+    if (nextProps.codeVisible !== codeVisible) {
+      this.toggleCode();
+    }
+    if (nextProps.propTypeVisible !== propTypeVisible) {
+      this.togglePropTypes();
+    }
+  }
+
   toggleCode = () => {
     this.setState({
       codeVisible: !this.state.codeVisible
     })
   }
 
-  /**
-   * 切换是否显示属性列表
-   */
   togglePropTypes = () => {
     this.setState({
       propTypeVisible: !this.state.propTypeVisible
@@ -134,9 +193,9 @@ export default class Redemo extends Component {
           name: <span className={classnames({
             're-demo-proptypes-required': required
           })}>{propName}</span>,
-          description: propInfo.description || '-',
+          description: <Markdown>{propInfo.description || '-'}</Markdown>,
           type: (propInfo.type || {}).name || '-',
-          defaultValue: (propInfo.defaultValue || {}).value,
+          defaultValue: (propInfo.defaultValue || {}).value || '-',
         }
         dataSource.push(one);
       })
