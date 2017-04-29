@@ -9,11 +9,11 @@ const propTypes = docgen[0]['props'];
 
 const doc = `
 ### react component used to demonstrate react component
-#### structure
 - in top section is demo instance to play 
 - circle button in right are toggle for **component propTypes** and **demo source code**
 - propTypes table show all prop's info for this component
 - in bottom is source code for this demo
+- red prop name means it's required
 `
 
 const code = `

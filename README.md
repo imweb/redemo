@@ -18,11 +18,11 @@ Redemo is used to help write demo for react component in a easy way, is't pretty
 - propTypes: auto list react component `propTypes` document form comment in your component source instead of write by yourself
 
 ## install
-use it from npm
+use it from npm in webpack
 ```bash
 npm i redemo
 ```
-load it in browser direct
+Or load it in browser direct
 ```html
 <link rel="stylesheet" href="./node_modules/redemo/dist/redemo.css">
 <script src="./node_modules/redemo/dist/redemo.js"></script>

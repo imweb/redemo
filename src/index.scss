@@ -83,3 +83,15 @@ $paddingTB: 20px;
   }
 
 }
+
+.redemo-prop-type-tag-tooltip {
+
+  .ant-tooltip-inner {
+    background-color: $colorBg;
+  }
+
+  .ant-tooltip-arrow {
+    border-right-color: $colorBg;
+  }
+
+}
