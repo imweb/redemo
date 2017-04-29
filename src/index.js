@@ -27,8 +27,9 @@ export default class Redemo extends Component {
     children: PropTypes.any.isRequired,
     /**
      * this demo's name
+     * - if it's void will read form docgen's component description
      */
-    title: PropTypes.any.isRequired,
+    title: PropTypes.any,
     /**
      * demo source code
      * - if it's void will not display
@@ -41,11 +42,14 @@ export default class Redemo extends Component {
      */
     doc: PropTypes.string,
     /**
-     * component's propTypes prop，load from [react-docgen](https://github.com/reactjs/react-docgen)
+     * component's info load from [react-docgen](https://github.com/reactjs/react-docgen)
      * - support markdown
-     * - if it's void will not display
+     * - if it's void will not display prop types table
      */
-    propTypes: PropTypes.object,
+    docgen: PropTypes.arrayOf(PropTypes.shape({
+      description: PropTypes.string,
+      props: PropTypes.arrayOf(PropTypes.object),
+    })),
     /**
      * whether show source code
      */
@@ -67,6 +71,7 @@ export default class Redemo extends Component {
   static defaultProps = {
     codeVisible: false,
     propTypeVisible: false,
+    docgen: []
   }
 
   static propTypesTableColumns = [
@@ -135,6 +140,20 @@ export default class Redemo extends Component {
     propTypeVisible: this.props.propTypeVisible,
   }
 
+  getTitle = () => {
+    const { docgen, title } = this.props;
+    //noinspection EqualityComparisonWithCoercionJS
+    if (title == null) {
+      return (docgen[0] || {}).description;
+    }
+    return title;
+  }
+
+  getPropTypes = () => {
+    const { docgen } = this.props;
+    return (docgen[0] || {}).props;
+  }
+
   componentWillReceiveProps(nextProps) {
     const { codeVisible, propTypeVisible } = this.props;
     if (nextProps.codeVisible !== codeVisible) {
@@ -169,8 +188,8 @@ export default class Redemo extends Component {
   }
 
   renderPropTypeTable = () => {
-    const { propTypes } = this.props;
     const { propTypeVisible } = this.state;
+    const propTypes = this.getPropTypes();
     if (propTypes && propTypeVisible) {
       const dataSource = Object.keys(propTypes).map(propName => Object.assign({ propName }, propTypes[propName]));
       return (
@@ -210,13 +229,16 @@ export default class Redemo extends Component {
   }
 
   render() {
-    const { className, style, children, code, title, doc, propTypes } = this.props;
+    const { className, style, children, code, doc } = this.props;
     const { propTypeVisible, codeVisible } = this.state;
+    const propTypes = this.getPropTypes();
+    const title = this.getTitle();
+    //noinspection EqualityComparisonWithCoercionJS
     return (
       <div className={classnames('re-demo', className)} style={style}>
         <div className="re-demo-run">{children}</div>
         <div className="re-demo-md">
-          <span className="re-demo-md-title">{title}</span>
+          {title != null ? <span className="re-demo-md-title">{title}</span> : null}
           <span className="re-demo-md-toolbar">
             {propTypes ? <Button
               type={propTypeVisible ? 'primary' : ''}

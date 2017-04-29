@@ -5,7 +5,6 @@ import ReDemo from '../index';
 import './index.scss';
 
 const docgen = require('!!docgen-loader!../index');
-const propTypes = docgen[0]['props'];
 
 const doc = `
 ### react component used to demonstrate react component
@@ -34,7 +33,7 @@ const demo = (
   <ReDemo
     className="my-demo"
     title="Redemo demo"
-    propTypes={propTypes}
+    docgen={docgen}
     doc={doc}
     code={code}
     codeVisible
