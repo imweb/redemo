@@ -37,7 +37,6 @@ import Button from './button';
 
 // load propTypes by docgen-loader from button component source code
 const docgen = require('!!docgen-loader!../button');
-const propTypes = docgen[0]['props'];
 
 // load source code by raw-loader from button component source code
 const code = require('!!raw-loader!../button');
@@ -55,7 +54,7 @@ const doc = `
 <ReDemo
   className="my-demo"
   title="react demo component"
-  propTypes={propTypes}
+  docgen={docgen}
   doc={doc}
   code={code}
   defaultCodeVisible
