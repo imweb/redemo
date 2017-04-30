@@ -2,6 +2,8 @@
 [![Npm Downloads](http://img.shields.io/npm/dm/redemo.svg?style=flat-square)](https://www.npmjs.com/package/redemo)
 [![Dependency Status](https://david-dm.org/gwuhaolin/redemo.svg?style=flat-square)](https://npmjs.org/package/redemo)
 
+[中文文档](https://github.com/gwuhaolin/blog/issues/1)
+
 # redemo
 When you write a react component, you may need tell others how to use it by write some demos.
 Redemo is used to help write demo for react component in a easy way, is't pretty and simple to use.
