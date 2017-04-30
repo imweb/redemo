@@ -74,9 +74,19 @@ $paddingTB: 20px;
 
 .redemo {
   position: relative;
-  border: 1px solid $colorBorder;
+  border: 1px solid darken($colorBorder, 2%);
   border-radius: 4px;
   display: inline-block;
+
+  &-toolbar {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+
+    .ant-btn-circle {
+      margin-left: 5px;
+    }
+  }
 
   &-run {
     padding: $paddingTB $paddingRL;
@@ -89,34 +99,6 @@ $paddingTB: 20px;
     position: relative;
     padding: $paddingTB $paddingRL;
     border-top: 1px solid $colorBorder;
-    $border: 5px;
-
-    @mixin inLine {
-      color: rgba(0, 0, 0, .65);
-      font-size: 17px;
-      font-weight: 500;
-      position: absolute;
-      top: -19px;
-      background-color: $colorBg;
-      border: $border solid $colorBg;
-    }
-
-    &-title {
-      @include inLine;
-      left: $paddingRL - $border;
-    }
-
-    &-toolbar {
-      @include inLine;
-      right: $paddingRL - $border;
-      border: none;
-      top: -17px;
-
-      .ant-btn-circle {
-        margin: 0 5px;
-      }
-    }
-
   }
 
   &-code {

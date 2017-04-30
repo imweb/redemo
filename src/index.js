@@ -33,11 +33,6 @@ export default class Redemo extends Component {
      */
     children: PropTypes.any.isRequired,
     /**
-     * this demo's name
-     * - if it's void will read form docgen's component description
-     */
-    title: PropTypes.any,
-    /**
      * demo source code
      * - if it's void will not display
      */
@@ -147,15 +142,6 @@ export default class Redemo extends Component {
     propTypeVisible: this.props.propTypeVisible,
   }
 
-  getTitle = () => {
-    const { docgen, title } = this.props;
-    //noinspection EqualityComparisonWithCoercionJS
-    if (title == null) {
-      return (docgen[0] || {}).description;
-    }
-    return title;
-  }
-
   getPropTypes = () => {
     const { docgen } = this.props;
     return (docgen[0] || {}).props;
@@ -194,6 +180,32 @@ export default class Redemo extends Component {
     }
   }
 
+  renderDoc = () => {
+    const { code, doc } = this.props;
+    const propTypes = this.getPropTypes();
+    return (
+      <div className="redemo-md">
+        <span className="redemo-toolbar">
+            {propTypes ? <Button
+              shape="circle"
+              icon="exception"
+              size="small"
+              title="component prop types"
+              onClick={this.togglePropTypes}
+            /> : null}
+          {code ? <Button
+            shape="circle"
+            icon="code-o"
+            size="small"
+            title="demo source code"
+            onClick={this.toggleCode}
+          /> : null}
+          </span>
+        <Markdown>{doc}</Markdown>
+      </div>
+    )
+  }
+
   renderPropTypeTable = () => {
     const { propTypeVisible } = this.state;
     const propTypes = this.getPropTypes();
@@ -220,14 +232,15 @@ export default class Redemo extends Component {
     if (code && codeVisible) {
       return (
         <div ref="code" className="redemo-code" style={{ display: codeVisible ? '' : 'none' }}>
-          <Button
-            className="redemo-code-copy"
-            shape="circle"
-            icon="copy"
-            size="small"
-            title="copy code"
-            onClick={this.copyCode}
-          />
+          <span className="redemo-toolbar">
+            <Button
+              shape="circle"
+              icon="copy"
+              size="small"
+              title="copy code"
+              onClick={this.copyCode}
+            />
+          </span>
           <Highlight>{code}</Highlight>
         </div>
       )
@@ -236,36 +249,11 @@ export default class Redemo extends Component {
   }
 
   render() {
-    const { className, style, children, code, doc } = this.props;
-    const { propTypeVisible, codeVisible } = this.state;
-    const propTypes = this.getPropTypes();
-    const title = this.getTitle();
-    //noinspection EqualityComparisonWithCoercionJS
+    const { className, style, children } = this.props;
     return (
       <div className={classnames('redemo', className)} style={style}>
         <div className="redemo-run">{children}</div>
-        <div className="redemo-md">
-          {title != null ? <span className="redemo-md-title">{title}</span> : null}
-          <span className="redemo-md-toolbar">
-            {propTypes ? <Button
-              type={propTypeVisible ? 'primary' : ''}
-              shape="circle"
-              icon="exception"
-              size="small"
-              title="component prop types"
-              onClick={this.togglePropTypes}
-            /> : null}
-            {code ? <Button
-              type={codeVisible ? 'primary' : ''}
-              shape="circle"
-              icon="code-o"
-              size="small"
-              title="demo source code"
-              onClick={this.toggleCode}
-            /> : null}
-          </span>
-          <Markdown>{doc}</Markdown>
-        </div>
+        {this.renderDoc()}
         {this.renderPropTypeTable()}
         {this.renderCode()}
       </div>

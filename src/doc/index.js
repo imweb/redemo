@@ -23,7 +23,6 @@ import ReDemo from 'redemo';
 
 <ReDemo
   className="my-demo"
-  title="react demo component"
   propTypes={propTypes}
   doc={doc}
   code={code}
