@@ -54,7 +54,15 @@ $paddingTB: 20px;
 @include ant-icon;
 
 @mixin reset {
+  @font-face {
+    font-family: "Helvetica Neue For Number";
+    src: local("Helvetica Neue");
+    unicode-range: U+30-39;
+  }
   * {
+    font-family: "Helvetica Neue For Number", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
     box-sizing: border-box;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
@@ -76,7 +84,6 @@ $paddingTB: 20px;
 
   &-md {
     @include reset;
-    font-size: 12px;
     color: rgba(0, 0, 0, 0.65);
     text-align: left;
     position: relative;
@@ -103,7 +110,7 @@ $paddingTB: 20px;
       @include inLine;
       right: $paddingRL - $border;
       border: none;
-      top: -15px;
+      top: -17px;
 
       .ant-btn-circle {
         margin: 0 5px;
@@ -114,7 +121,6 @@ $paddingTB: 20px;
 
   &-code {
     @include reset;
-    font-size: 12px;
     text-align: left;
     position: relative;
     border-top: 1px dashed $colorBorder;
@@ -137,6 +143,7 @@ $paddingTB: 20px;
 
   &-proptypes {
     @include reset;
+    color: rgba(0, 0, 0, 0.65);
     text-align: left;
     border-top: 1px dashed $colorBorder;
 
