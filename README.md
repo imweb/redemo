@@ -69,4 +69,4 @@ const doc = `
 see `ReDemo`'s all props [here](https://gwuhaolin.github.io/redemo/)
 
 ## In practice
-- [IMUIX for ke.qq.com](http://imweb.github.io/imuix/)
+- [imuix](http://imweb.github.io/imuix/)
