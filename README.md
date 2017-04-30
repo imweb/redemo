@@ -53,7 +53,6 @@ const doc = `
 
 <ReDemo
   className="my-demo"
-  title="react demo component"
   docgen={docgen}
   doc={doc}
   code={code}
@@ -66,3 +65,6 @@ const doc = `
 
 ## API
 see `ReDemo`'s all props [here](https://gwuhaolin.github.io/redemo/)
+
+## In practice
+- [IMUIX for ke.qq.com](http://imweb.github.io/imuix/)
