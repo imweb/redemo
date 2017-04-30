@@ -1,18 +1,25 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
+import Markdown from 'react-remarkable';
+
 import Highlight from 'react-highlight';
 import 'highlight.js/styles/arduino-light.css';
-import Markdown from 'react-remarkable';
-import 'antd/lib/style/index.css';
+
 import message from 'antd/lib/message';
 import 'antd/lib/message/style/index.css';
+
 import Button from 'antd/lib/button';
+import 'antd/lib/button/style/index.css';
+
 import Table from 'antd/lib/table';
 import 'antd/lib/table/style/index.css';
+
 import Tag from 'antd/lib/tag';
 import 'antd/lib/tag/style/index.css';
+
 import Tooltip from 'antd/lib/tooltip';
 import 'antd/lib/tooltip/style/index.css';
+
 import './index.scss';
 
 /**
@@ -81,7 +88,7 @@ export default class Redemo extends Component {
       render: (_, record) => {
         const { propName, required } = record;
         return (
-          <span className={classnames({ 're-demo-proptypes-required': required })}
+          <span className={classnames({ 'redemo-proptypes-required': required })}
                 title={required ? 'required prop' : null}>{propName}</span>
         )
       }
@@ -117,7 +124,7 @@ export default class Redemo extends Component {
         }
         if (['object', 'shape'].indexOf(type.name) >= 0) {
           return (
-            <Tooltip placement="right" overlayClassName="redemo-prop-type-tag-tooltip" title={
+            <Tooltip placement="right" overlayClassName="redemo-tooltip" title={
               <ObjectView object={value}/>
             }>
               <Tag color="blue">object</Tag>
@@ -195,7 +202,7 @@ export default class Redemo extends Component {
       return (
         <Table
           rowKey="propName"
-          className="re-demo-proptypes"
+          className="redemo-proptypes"
           columns={Redemo.propTypesTableColumns}
           dataSource={dataSource}
           pagination={false}
@@ -212,9 +219,9 @@ export default class Redemo extends Component {
     const { codeVisible } = this.state;
     if (code && codeVisible) {
       return (
-        <div ref="code" className="re-demo-code" style={{ display: codeVisible ? '' : 'none' }}>
+        <div ref="code" className="redemo-code" style={{ display: codeVisible ? '' : 'none' }}>
           <Button
-            className="re-demo-code-copy"
+            className="redemo-code-copy"
             shape="circle"
             icon="copy"
             size="small"
@@ -235,11 +242,11 @@ export default class Redemo extends Component {
     const title = this.getTitle();
     //noinspection EqualityComparisonWithCoercionJS
     return (
-      <div className={classnames('re-demo', className)} style={style}>
-        <div className="re-demo-run">{children}</div>
-        <div className="re-demo-md">
-          {title != null ? <span className="re-demo-md-title">{title}</span> : null}
-          <span className="re-demo-md-toolbar">
+      <div className={classnames('redemo', className)} style={style}>
+        <div className="redemo-run">{children}</div>
+        <div className="redemo-md">
+          {title != null ? <span className="redemo-md-title">{title}</span> : null}
+          <span className="redemo-md-toolbar">
             {propTypes ? <Button
               type={propTypeVisible ? 'primary' : ''}
               shape="circle"
@@ -281,7 +288,7 @@ class PropTypeValueTag extends Component {
     const { name, value } = type;
     if (value !== undefined) {
       return (
-        <Tooltip placement="right" overlayClassName="redemo-prop-type-tag-tooltip" title={
+        <Tooltip placement="right" overlayClassName="redemo-tooltip" title={
           <ObjectView object={value}/>
         }>
           <Tag color="blue">{name}</Tag>

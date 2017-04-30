@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { Button } from 'antd';
+
+import Button from 'antd/lib/button';
+import 'antd/lib/button/style/index.css';
+
 import ReDemo from '../index';
 import './index.scss';
 
