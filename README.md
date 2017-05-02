@@ -24,11 +24,6 @@ use it from npm in webpack
 ```bash
 npm i redemo
 ```
-Or load it in browser direct
-```html
-<link rel="stylesheet" href="./node_modules/redemo/dist/redemo.css">
-<script src="./node_modules/redemo/dist/redemo.js"></script>
-```
 
 ## example
 Let's write a demo for a `Button` component

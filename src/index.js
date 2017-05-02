@@ -50,7 +50,7 @@ export default class Redemo extends Component {
      */
     docgen: PropTypes.arrayOf(PropTypes.shape({
       description: PropTypes.string,
-      props: PropTypes.arrayOf(PropTypes.object),
+      props: PropTypes.object,
     })),
     /**
      * whether show source code
