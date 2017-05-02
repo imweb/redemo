@@ -6,12 +6,10 @@ $paddingTB: 20px;
 @mixin ant-icon {
   @font-face {
     font-family: 'anticon';
-    src: url('https://at.alicdn.com/t/font_0qcp222wvwijm7vi.eot');
-    /* IE9*/
-    src: url('https://at.alicdn.com/t/font_0qcp222wvwijm7vi.eot?#iefix') format('embedded-opentype'), /* chrome、firefox */
-    url('https://at.alicdn.com/t/font_0qcp222wvwijm7vi.woff') format('woff'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-    url('https://at.alicdn.com/t/font_0qcp222wvwijm7vi.ttf') format('truetype'), /* iOS 4.1- */
-    url('https://at.alicdn.com/t/font_0qcp222wvwijm7vi.svg#iconfont') format('svg');
+    src: url('./iconfont/iconfont.eot') format('embedded-opentype'), /* chrome、firefox */
+    url('./iconfont/iconfont.woff') format('woff'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('./iconfont/iconfont.ttf') format('truetype'), /* iOS 4.1- */
+    url('./iconfont/iconfont.svg') format('svg');
   }
 
   .anticon {
