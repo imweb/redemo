@@ -25,6 +25,11 @@ use it from npm in webpack
 npm i redemo
 ```
 
+then install webpack dependencies
+```html
+npm i raw-loader react-docgen docgen-loader --save-dev
+```
+
 ## example
 Let's write a demo for a `Button` component
 
