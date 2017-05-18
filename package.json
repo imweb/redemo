@@ -12,10 +12,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --open",
-    "doc:pub": "rm -rf .doc && NODE_ENV=production webpack --config webpack-dist.config.js",
+    "doc:pub": "NODE_ENV=production webpack --config webpack-dist.config.js && rm -rf .doc",
     "npm:scss": "node-sass src/ -o .npm/",
     "npm:js": "BABEL_ENV=dist babel src/ --out-dir .npm/ --source-maps",
-    "npm:pub": "rm -rf .npm && npm run npm:scss && npm run npm:js && cp ./package.json .npm/ && cp -R ./src/iconfont ./.npm/iconfont && npm publish .npm/"
+    "npm:pub": "npm run npm:scss && npm run npm:js && cp ./package.json .npm/ && cp -R ./src/iconfont ./.npm/iconfont && npm publish .npm/ && rm -rf .npm"
   },
   "author": "halwu",
   "license": "ISC",
