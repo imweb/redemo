@@ -1,6 +1,6 @@
 {
   "name": "redemo",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "react demo component",
   "keywords": [
     "react",
@@ -12,20 +12,20 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --open",
-    "doc:pub": "rm -rf doc && NODE_ENV=production webpack --config webpack-dist.config.js",
-    "npm:scss": "node-sass src/ -o npm/",
-    "npm:js": "BABEL_ENV=dist babel src/ --out-dir npm/ --source-maps",
-    "npm:pub": "rm -rf npm && npm run npm:scss && npm run npm:js && cp ./package.json npm/ && cp -R ./src/iconfont ./npm/iconfont && npm publish npm/"
+    "doc:pub": "rm -rf .doc && NODE_ENV=production webpack --config webpack-dist.config.js",
+    "npm:scss": "node-sass src/ -o .npm/",
+    "npm:js": "BABEL_ENV=dist babel src/ --out-dir .npm/ --source-maps",
+    "npm:pub": "rm -rf .npm && npm run npm:scss && npm run npm:js && cp ./package.json .npm/ && cp -R ./src/iconfont ./.npm/iconfont && npm publish .npm/"
   },
   "author": "halwu",
   "license": "ISC",
   "dependencies": {
-    "antd": "^2.9.3",
+    "antd": "^2.10.1",
     "babel-runtime": "^6.23.0",
     "classnames": "^2.2.5",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-highlight": "^0.9.0",
+    "react-highlight": "^0.10.0",
     "react-remarkable": "^1.1.1"
   },
   "devDependencies": {
@@ -38,19 +38,19 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "css-loader": "^0.28.0",
+    "css-loader": "^0.28.1",
     "docgen-loader": "^1.3.4",
     "end-webpack-plugin": "^1.0.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
-    "gh-pages": "^0.12.0",
+    "gh-pages": "^1.0.0",
     "ncp": "^2.0.0",
-    "node-sass": "^4.5.2",
-    "react-docgen": "^2.14.1",
-    "sass-loader": "^6.0.3",
-    "style-loader": "^0.16.1",
-    "web-webpack-plugin": "^1.5.5",
-    "webpack": "^2.4.1",
+    "node-sass": "^4.5.3",
+    "react-docgen": "^3.0.0-beta4",
+    "sass-loader": "^6.0.5",
+    "style-loader": "^0.17.0",
+    "web-webpack-plugin": "^1.5.8",
+    "webpack": "^2.5.1",
     "webpack-dev-server": "^2.4.5"
   }
 }

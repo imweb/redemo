@@ -36,6 +36,10 @@ $paddingTB: 20px;
     content: "\e665";
   }
 
+  .anticon-bars:before {
+    content: "\e639";
+  }
+
   .anticon-code-o:before {
     content: "\e636";
   }
@@ -121,7 +125,7 @@ $paddingTB: 20px;
     }
   }
 
-  &-proptypes {
+  &-table {
     @include reset;
     color: rgba(0, 0, 0, 0.65);
     text-align: left;
@@ -137,6 +141,12 @@ $paddingTB: 20px;
 
     .ant-table-small {
       border: none;
+    }
+
+    .ant-table-title {
+      margin-left: 8px;
+      color: #000;
+      font-weight: 500;
     }
   }
 

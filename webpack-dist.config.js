@@ -6,7 +6,7 @@ const EndWebpackPlugin = require('end-webpack-plugin');
 const { WebPlugin } = require('web-webpack-plugin');
 const ghpages = require('gh-pages');
 
-const outputPath = path.resolve(__dirname, 'doc');
+const outputPath = path.resolve(__dirname, '.doc');
 module.exports = {
   output: {
     path: outputPath,

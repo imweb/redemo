@@ -61,6 +61,10 @@ export default class Redemo extends Component {
      */
     propTypeVisible: PropTypes.bool,
     /**
+     * whether show methods
+     */
+    methodsVisible: PropTypes.bool,
+    /**
      * append className to Redemo
      */
     className: PropTypes.string,
@@ -73,6 +77,7 @@ export default class Redemo extends Component {
   static defaultProps = {
     codeVisible: false,
     propTypeVisible: false,
+    methodsVisible: false,
     docgen: []
   }
 
@@ -131,6 +136,59 @@ export default class Redemo extends Component {
     }
   ];
 
+  static methodsTableColumns = [
+    {
+      title: 'name',
+      key: 'name',
+      render: (_, record) => {
+        const { name } = record;
+        if (name) {
+          return name;
+        }
+        return '-';
+      }
+    }, {
+      title: 'description',
+      key: 'description',
+      render: (_, record) => {
+        const { description } = record;
+        if (description) {
+          return description;
+        }
+        return '-';
+      }
+    }, {
+      title: 'params',
+      key: 'params',
+      render: (_, record) => {
+        const { params } = record;
+        if (Array.isArray(params)) {
+          return params.map(({ description, name, type }) => (
+            <div key={name}>
+              <PropTypeValueTag type={type}/>
+              <strong title="param name" style={{ marginRight: '5px' }}>{name}</strong>
+              <span title="param description">{description}</span>
+            </div>
+          ));
+        }
+        return '-';
+      }
+    }, {
+      title: 'returns',
+      key: 'returns',
+      render: (_, record) => {
+        const { returns } = record;
+        const { description, type } = returns;
+        return (
+          <div>
+            <PropTypeValueTag type={type}/>
+            <span title="returns description">{description}</span>
+          </div>
+        )
+      }
+    },
+  ];
+
   state = {
     /**
      * whether show source code
@@ -140,36 +198,54 @@ export default class Redemo extends Component {
      * whether show propTypes
      */
     propTypeVisible: this.props.propTypeVisible,
+    /**
+     * whether show methods
+     */
+    methodsVisible: this.props.methodsVisible,
   }
 
-  getPropTypes = () => {
+  componentWillReceiveProps(nextProps) {
+    const { codeVisible, propTypeVisible, methodsVisible } = this.props;
+    if (nextProps.codeVisible !== codeVisible) {
+      this._toggleCode();
+    }
+    if (nextProps.propTypeVisible !== propTypeVisible) {
+      this._togglePropTypes();
+    }
+    if (nextProps.methodsVisible !== methodsVisible) {
+      this._toggleMethods();
+    }
+  }
+
+  _getPropTypes = () => {
     const { docgen } = this.props;
     return (docgen[0] || {}).props;
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { codeVisible, propTypeVisible } = this.props;
-    if (nextProps.codeVisible !== codeVisible) {
-      this.toggleCode();
-    }
-    if (nextProps.propTypeVisible !== propTypeVisible) {
-      this.togglePropTypes();
-    }
+  _getMethods = () => {
+    const { docgen } = this.props;
+    return (docgen[0] || {}).methods || [];
   }
 
-  toggleCode = () => {
+  _toggleCode = () => {
     this.setState({
       codeVisible: !this.state.codeVisible
     })
   }
 
-  togglePropTypes = () => {
+  _togglePropTypes = () => {
     this.setState({
       propTypeVisible: !this.state.propTypeVisible
     })
   }
 
-  copyCode = () => {
+  _toggleMethods = () => {
+    this.setState({
+      methodsVisible: !this.state.methodsVisible
+    })
+  }
+
+  _copyCode = () => {
     const { code } = this.props;
     try {
       copyToClipboard(code);
@@ -180,25 +256,33 @@ export default class Redemo extends Component {
     }
   }
 
-  renderDoc = () => {
+  _renderDoc = () => {
     const { code, doc } = this.props;
-    const propTypes = this.getPropTypes();
+    const propTypes = this._getPropTypes();
+    const methods = this._getMethods();
     return (
       <div className="redemo-md">
         <span className="redemo-toolbar">
-            {propTypes ? <Button
-              shape="circle"
-              icon="exception"
-              size="small"
-              title="component prop types"
-              onClick={this.togglePropTypes}
-            /> : null}
+          {propTypes ? <Button
+            shape="circle"
+            icon="exception"
+            size="small"
+            title="component prop types"
+            onClick={this._togglePropTypes}
+          /> : null}
+          {methods ? <Button
+            shape="circle"
+            icon="bars"
+            size="small"
+            title="component methods"
+            onClick={this._toggleMethods}
+          /> : null}
           {code ? <Button
             shape="circle"
             icon="code-o"
             size="small"
             title="demo source code"
-            onClick={this.toggleCode}
+            onClick={this._toggleCode}
           /> : null}
           </span>
         <Markdown>{doc}</Markdown>
@@ -206,27 +290,53 @@ export default class Redemo extends Component {
     )
   }
 
-  renderPropTypeTable = () => {
+  _renderPropTypeTable = () => {
     const { propTypeVisible } = this.state;
-    const propTypes = this.getPropTypes();
+    const propTypes = this._getPropTypes();
     if (propTypes && propTypeVisible) {
-      const dataSource = Object.keys(propTypes).map(propName => Object.assign({ propName }, propTypes[propName]));
-      return (
-        <Table
-          rowKey="propName"
-          className="redemo-proptypes"
-          columns={Redemo.propTypesTableColumns}
-          dataSource={dataSource}
-          pagination={false}
-          size="small"
-          locale={{}}
-        />
-      )
+      const propTypesKeys = Object.keys(propTypes);
+      // show PropTypeTable only if has more than one PropType
+      if (propTypesKeys.length > 0) {
+        const dataSource = propTypesKeys.map(propName => Object.assign({ propName }, propTypes[propName]));
+        return (
+          <Table
+            title={() => 'PropTypes'}
+            rowKey="propName"
+            className="redemo-table"
+            columns={Redemo.propTypesTableColumns}
+            dataSource={dataSource}
+            pagination={false}
+            size="small"
+          />
+        )
+      }
     }
     return null;
   }
 
-  renderCode = () => {
+  _renderMethodsTable = () => {
+    const { methodsVisible } = this.state;
+    const methods = this._getMethods();
+    if (methods && methodsVisible) {
+      // show MethodsTable only if has more than one method
+      if (methods.length > 0) {
+        return (
+          <Table
+            title={() => 'Methods'}
+            rowKey="name"
+            className="redemo-table"
+            columns={Redemo.methodsTableColumns}
+            dataSource={methods}
+            pagination={false}
+            size="small"
+          />
+        )
+      }
+    }
+    return null;
+  }
+
+  _renderCode = () => {
     const { code } = this.props;
     const { codeVisible } = this.state;
     if (code && codeVisible) {
@@ -238,7 +348,7 @@ export default class Redemo extends Component {
               icon="copy"
               size="small"
               title="copy code"
-              onClick={this.copyCode}
+              onClick={this._copyCode}
             />
           </span>
           <Highlight>{code}</Highlight>
@@ -253,14 +363,18 @@ export default class Redemo extends Component {
     return (
       <div className={classnames('redemo', className)} style={style}>
         <div className="redemo-run">{children}</div>
-        {this.renderDoc()}
-        {this.renderPropTypeTable()}
-        {this.renderCode()}
+        {this._renderDoc()}
+        {this._renderPropTypeTable()}
+        {this._renderMethodsTable()}
+        {this._renderCode()}
       </div>
     )
   }
 }
 
+/**
+ * PropTypeValueTag show in propTypes Table for complex prop
+ */
 class PropTypeValueTag extends Component {
 
   static propTypes = {
@@ -288,6 +402,9 @@ class PropTypeValueTag extends Component {
   }
 }
 
+/**
+ * display a JSON in pop
+ */
 class ObjectView extends Component {
   static propTypes = {
     object: PropTypes.any

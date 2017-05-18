@@ -40,6 +40,7 @@ const demo = (
     code={code}
     codeVisible
     propTypeVisible
+    methodsVisible
   >
     <Button>demo component instance</Button>
   </ReDemo>
