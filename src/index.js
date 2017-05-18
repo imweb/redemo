@@ -224,7 +224,7 @@ export default class Redemo extends Component {
 
   _getMethods = () => {
     const { docgen } = this.props;
-    return (docgen[0] || {}).methods || [];
+    return (docgen[0] || {}).methods;
   }
 
   _toggleCode = () => {
@@ -270,7 +270,7 @@ export default class Redemo extends Component {
             title="component prop types"
             onClick={this._togglePropTypes}
           /> : null}
-          {methods ? <Button
+          {methods && methods.length > 0 ? <Button
             shape="circle"
             icon="bars"
             size="small"
