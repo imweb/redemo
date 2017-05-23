@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-import Markdown from 'react-remarkable';
+import { Remd } from './remd';
 
 import Highlight from 'react-highlight';
 import 'highlight.js/styles/arduino-light.css';
@@ -69,6 +69,10 @@ export default class Redemo extends Component {
      */
     className: PropTypes.string,
     /**
+     * className pass to markdown
+     */
+    mdClassName: PropTypes.string,
+    /**
      * set style for Redemo
      */
     style: PropTypes.object,
@@ -81,7 +85,7 @@ export default class Redemo extends Component {
     docgen: []
   }
 
-  static propTypesTableColumns = [
+  propTypesTableColumns = [
     {
       title: 'name',
       key: 'name',
@@ -108,7 +112,8 @@ export default class Redemo extends Component {
       render: (_, record) => {
         const { description } = record;
         if (typeof description === 'string' && description.length > 0) {
-          return <Markdown>{description}</Markdown>;
+          const { mdClassName } = this.props;
+          return <Remd className={mdClassName}>{description}</Remd>;
         }
         return '-';
       }
@@ -136,7 +141,7 @@ export default class Redemo extends Component {
     }
   ];
 
-  static methodsTableColumns = [
+  methodsTableColumns = [
     {
       title: 'name',
       key: 'name',
@@ -257,7 +262,7 @@ export default class Redemo extends Component {
   }
 
   _renderDoc = () => {
-    const { code, doc } = this.props;
+    const { code, doc, mdClassName } = this.props;
     const propTypes = this._getPropTypes();
     const methods = this._getMethods();
     return (
@@ -285,7 +290,7 @@ export default class Redemo extends Component {
             onClick={this._toggleCode}
           /> : null}
           </span>
-        <Markdown>{doc}</Markdown>
+        <Remd className={mdClassName}>{doc}</Remd>
       </div>
     )
   }
@@ -303,7 +308,7 @@ export default class Redemo extends Component {
             title={() => 'PropTypes'}
             rowKey="propName"
             className="redemo-table"
-            columns={Redemo.propTypesTableColumns}
+            columns={this.propTypesTableColumns}
             dataSource={dataSource}
             pagination={false}
             size="small"
@@ -325,7 +330,7 @@ export default class Redemo extends Component {
             title={() => 'Methods'}
             rowKey="name"
             className="redemo-table"
-            columns={Redemo.methodsTableColumns}
+            columns={this.methodsTableColumns}
             dataSource={methods}
             pagination={false}
             size="small"

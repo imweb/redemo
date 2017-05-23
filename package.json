@@ -20,13 +20,14 @@
   "author": "halwu",
   "license": "ISC",
   "dependencies": {
-    "antd": "^2.10.1",
+    "antd": "^2.10.2",
     "babel-runtime": "^6.23.0",
     "classnames": "^2.2.5",
+    "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-highlight": "^0.10.0",
-    "react-remarkable": "^1.1.1"
+    "remarkable": "^1.7.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -38,7 +39,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "css-loader": "^0.28.1",
+    "css-loader": "^0.28.2",
     "docgen-loader": "^1.3.4",
     "end-webpack-plugin": "^1.0.0",
     "extract-text-webpack-plugin": "^2.1.0",
@@ -48,9 +49,9 @@
     "node-sass": "^4.5.3",
     "react-docgen": "^3.0.0-beta4",
     "sass-loader": "^6.0.5",
-    "style-loader": "^0.17.0",
+    "style-loader": "^0.18.0",
     "web-webpack-plugin": "^1.5.8",
-    "webpack": "^2.5.1",
+    "webpack": "^2.6.0",
     "webpack-dev-server": "^2.4.5"
   }
 }

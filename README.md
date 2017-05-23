@@ -27,7 +27,7 @@ npm i redemo
 
 then install webpack dependencies
 ```html
-npm i raw-loader react-docgen docgen-loader --save-dev
+npm i raw-loader react-docgen@next docgen-loader --save-dev
 ```
 
 ## example
