@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-import { Remd } from './remd';
+import Remd from 'remd';
 
 import Highlight from 'react-highlight';
 import 'highlight.js/styles/arduino-light.css';
@@ -80,7 +80,7 @@ export default class Redemo extends Component {
 
   static defaultProps = {
     codeVisible: false,
-    propTypeVisible: false,
+    propTypeVisible: true,
     methodsVisible: false,
     docgen: []
   }
