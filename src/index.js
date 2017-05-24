@@ -122,8 +122,8 @@ export default class Redemo extends Component {
       dataIndex: 'defaultValue',
       key: 'defaultValue',
       render: (_, record) => {
-        const { defaultValue, type } = record;
-        let { value } = defaultValue || {};
+        const { defaultValue = {}, type = {} } = record;
+        let { value } = defaultValue;
         if (value === undefined) {
           return '-';
         }
