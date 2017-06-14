@@ -9,6 +9,10 @@
     "doc",
     "redemo"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:gwuhaolin/redemo.git"
+  },
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --open",
