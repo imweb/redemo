@@ -392,17 +392,21 @@ class PropTypeValueTag extends Component {
 
   render() {
     const { type } = this.props;
-    const { name, value } = type;
-    if (value !== undefined) {
-      return (
-        <Tooltip placement="right" overlayClassName="redemo-tooltip" title={
-          <ObjectView object={value}/>
-        }>
-          <Tag color="blue">{name}</Tag>
-        </Tooltip>
-      )
+    if (type) {
+      const { name, value } = type;
+      if (value !== undefined) {
+        return (
+          <Tooltip placement="right" overlayClassName="redemo-tooltip" title={
+            <ObjectView object={value}/>
+          }>
+            <Tag color="blue">{name}</Tag>
+          </Tooltip>
+        )
+      } else {
+        return <Tag style={{ cursor: 'default' }}>{name}</Tag>
+      }
     } else {
-      return <Tag style={{ cursor: 'default' }}>{name}</Tag>
+      return null;
     }
   }
 }
