@@ -183,13 +183,17 @@ export default class Redemo extends Component {
       key: 'returns',
       render: (_, record) => {
         const { returns } = record;
-        const { description, type } = returns;
-        return (
-          <div>
-            <PropTypeValueTag type={type}/>
-            <span title="returns description">{description}</span>
-          </div>
-        )
+        if (returns) {
+          const { description, type } = returns;
+          return (
+            <div>
+              <PropTypeValueTag type={type}/>
+              <span title="returns description">{description}</span>
+            </div>
+          )
+        }else {
+          return null;
+        }
       }
     },
   ];
