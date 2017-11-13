@@ -66,7 +66,7 @@ const doc = `
 ```
 
 ## API
-see `ReDemo`'s all props [here](https://gwuhaolin.github.io/redemo/)
+see `ReDemo`'s all props [here](https://imweb.github.io/redemo/)
 
 ## In practice
 - [imuix](http://imweb.github.io/imuix/)
