@@ -1,6 +1,6 @@
 {
   "name": "redemo",
-  "version": "1.0.9",
+  "version": "2.0.0",
   "description": "react demo component",
   "keywords": [
     "react",
@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:gwuhaolin/redemo.git"
+    "url": "git@github.com:imweb/redemo.git"
   },
   "main": "index.js",
   "scripts": {
@@ -28,8 +28,9 @@
     "babel-runtime": "^6.23.0",
     "classnames": "^2.2.5",
     "prop-types": "^15.5.10",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "prop-types": "^15.6.0",
     "react-highlight": "^0.10.0",
     "remd": "^1.0.0"
   },
